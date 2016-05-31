@@ -15,10 +15,6 @@
 
 'use strict';
 
-/**
- * When editing your questions pay attention to your punctuation. Make sure you use question marks or periods.
- * Make sure the first answer is the correct one. Set at least 4 answers, any extras will be shuffled in.
- */
 var questions = [
     {
         "Approximately how many cells does the body contain?": [
@@ -446,11 +442,6 @@ exports.handler = function (event, context) {
     try {
         console.log("event.session.application.applicationId=" + event.session.application.applicationId);
 
-        /**
-         * Uncomment this if statement and populate with your skill's application ID to
-         * prevent someone else from configuring a skill that sends requests to this function.
-         */
-
      if (event.session.application.applicationId !== "amzn1.echo-sdk-ams.app.3076d8ab-c84b-4391-9045-23908727e314") {
          context.fail("Invalid Application ID");
       }
@@ -486,8 +477,6 @@ exports.handler = function (event, context) {
 function onSessionStarted(sessionStartedRequest, session) {
     console.log("onSessionStarted requestId=" + sessionStartedRequest.requestId
         + ", sessionId=" + session.sessionId);
-
-    // add any session init logic here
 }
 
 /**
@@ -553,19 +542,17 @@ function onIntent(intentRequest, session, callback) {
 function onSessionEnded(sessionEndedRequest, session) {
     console.log("onSessionEnded requestId=" + sessionEndedRequest.requestId
         + ", sessionId=" + session.sessionId);
-
-    // Add any cleanup logic here
 }
 
 // ------- Skill specific business logic -------
 
 var ANSWER_COUNT = 4;
 var GAME_LENGTH = 5;
-var CARD_TITLE = "The Human Body Quiz"; // Be sure to change this for your skill.
+var CARD_TITLE = "Human Body Quiz";
 
 function getWelcomeResponse(callback) {
     var sessionAttributes = {},
-        speechOutput = "The Human Body Quiz. I will ask you " + GAME_LENGTH.toString()
+        speechOutput = "Human Body Quiz. I will ask you " + GAME_LENGTH.toString()
             + " questions, try to get as many right as you can. Just say the number of the answer. Let's begin. ",
         shouldEndSession = false,
 
@@ -625,9 +612,7 @@ function populateGameQuestions() {
 }
 
 function populateRoundAnswers(gameQuestionIndexes, correctAnswerIndex, correctAnswerTargetLocation) {
-    // Get the answers for a given question, and place the correct answer at the spot marked by the
-    // correctAnswerTargetLocation variable. Note that you can have as many answers as you want but
-    // only ANSWER_COUNT will be selected.
+
     var answers = [],
         answersCopy = questions[gameQuestionIndexes[correctAnswerIndex]][Object.keys(questions[gameQuestionIndexes[correctAnswerIndex]])[0]],
         temp, i;
